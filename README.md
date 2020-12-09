@@ -14,6 +14,7 @@ Feel free to use whatever resources you'd typically use when doing development w
 * Navigate to the exercise you've been instructed to complete for detailed instructions.
 
 **Once you have completed your exercise:**
+
 * Commit and push the entire repository, with your completed project, back into a repository host of your choice (bitbucket, github, gitlab, etc)
 * Share your project URL with your Virbela contact (Recruiter or Hiring Manager)
 
