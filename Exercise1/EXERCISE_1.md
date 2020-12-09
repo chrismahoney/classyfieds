@@ -57,9 +57,4 @@ Please implement any of the following stretch goals. They are in no particular o
 * Confirm you've addressed the functional goals
 * Answer the questions above by adding them to this file
 * Make sure your README.md is up to date with setup and run instructions
-* Push your project to public source control
-* Share your project URL with your Virbela contact (Recruiter or Hiring Manager)
-
-## If you have questions ##
-
-* Reach out to your Virbela contact (Recruiter or Hiring Manager)
+* Ensure you've followed the sharing instructions in the main [README](../README.md)
