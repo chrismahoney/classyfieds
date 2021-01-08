@@ -30,10 +30,10 @@ Implement a RESTful API to support zero to many elevators in a building. Buildin
 ### Phase 3 - Add queuing of floor stops ###
 
 * Ensure that the elevator only stops when appropriate
-	* Example: if elevator is travelling from floor 5 to floor 1, and floor 3 requests to go up, it's added to end of queue
-	* Example: if elevator is travelling from floor 1 to 4 and floor 2 requests to go up, it's added in middle of queue to stop on floor 2 before floor 4.
+	* Example: if elevator is travelling from floor 5 to floor 1, and a user on floor 3 requests to go up, the elevator will not stop on the way down, but will return after floor 1
+	* Example: if elevator is travelling from floor 1 to 4 and floor 3 requests to go up, the elevator should stop on floor 3 before floor 4
 * Ensure elevator is efficient
-	* Example: if 10 people get on elevator on floor 1 and press 10 different floors, they should get added in a queue in most efficient order of stops.
+	* Example: if 10 people get on elevator on floor 1 and press 10 different floors, the elevator should stop on the floors in sequence.
 
 ### Phase 4 - Stretch Goals ###
 
