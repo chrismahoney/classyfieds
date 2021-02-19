@@ -23,22 +23,30 @@ As you progress through the steps, feel free to add comments to the code about *
 
 Implement a RESTful API to support zero to many elevators in a building. Buildings *have many* elevators in this relationship. Must meet the following requirements:
 
- * GET call can request information about the building, which will return all available elevators
- * GET call can request information about an elevator in a building including, but not limited to: id, status, current floor, available floors
- * POST call can command an elevator to perform actions including, but not limited to: open door, close door, go to floor
+ * API call can request information about the building, which will return all available elevators
+ * API call can request information about an elevator in a building including, but not limited to: id, status, current floor, available floors
+ * API call can command an elevator to perform actions including, but not limited to: open door, close door, go to floor
+
+ Notes on elevator state:
+ - For this phase we assume that any elevator actions are instantaneous
+ - "go to floor" request for an elevator results in instant arrival at the floor and opening of the door
 
 ### Phase 3 - Add queuing of floor stops ###
 
-* Ensure that the elevator only stops when appropriate
-	* Example: if elevator is travelling from floor 5 to floor 1, and a user on floor 3 requests to go up, the elevator will not stop on the way down, but will return after floor 1
-	* Example: if elevator is travelling from floor 1 to 4 and floor 3 requests to go up, the elevator should stop on floor 3 before floor 4
-* Ensure elevator is efficient
-	* Example: if 10 people get on elevator on floor 1 and press 10 different floors, the elevator should stop on the floors in sequence.
+* Elevator actions are no longer instantaneous
+	* Actions are now queued and all actions will execute when a separate API request "go" is called
+	* "Go" should be applied to all elevators in a building, and all queued actions execute instantaneously
+	* Elevator actions should be logged (console output is fine) and the final state available immediately
+
+Notes:
+- The concept of requesting to go up or down can be ignored for simplicity. Just stick with "go to floor"
+- The elevator should be efficient in stopping at floors. If the elevator is on floor 1 and "go to floor" is queued for 5 different floors, the elevator should stop at each queued floor in a logical, efficient sequence.
 
 ### Phase 4 - Stretch Goals ###
 
 Please implement any of the following stretch goals. They are in no particular order.
 
+ * Unit tests
  * Add some sort of logic to have the elevator intelligently position itself when not actively being used (e.g. if it was an office building, idle on lower floors in morning, upper or middle floors at the end of the workday)
  	* This could be configurable or "smart" based on trends
  * Add some type of self-documenting UI such as Swagger
