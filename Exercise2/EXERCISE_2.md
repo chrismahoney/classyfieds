@@ -31,7 +31,16 @@ Implement a RESTful API to support zero to many elevators in a building. Buildin
  - For this phase we assume that any elevator actions are instantaneous
  - "go to floor" request for an elevator results in instant arrival at the floor and opening of the door
 
-### Phase 3 - Add queuing of floor stops ###
+### Phase 3 - Stretch Goals ###
+
+Please implement any of the following stretch goals. They are in no particular order.
+
+ * Unit tests
+ * Add some sort of logic to have the elevator intelligently position itself when not actively being used (e.g. if it was an office building, idle on lower floors in morning, upper or middle floors at the end of the workday)
+ 	* This could be configurable or "smart" based on trends
+ * Add some type of self-documenting UI such as Swagger
+
+### Phase 4 - SUPER STRETCH GOAL - Add queuing of floor stops ###
 
 * Elevator actions are no longer instantaneous
 	* Actions are now queued and all actions will execute when a separate API request "go" is called
@@ -41,15 +50,6 @@ Implement a RESTful API to support zero to many elevators in a building. Buildin
 Notes:
 - The concept of requesting to go up or down can be ignored for simplicity. Just stick with "go to floor"
 - The elevator should be efficient in stopping at floors. If the elevator is on floor 1 and "go to floor" is queued for 5 different floors, the elevator should stop at each queued floor in a logical, efficient sequence.
-
-### Phase 4 - Stretch Goals ###
-
-Please implement any of the following stretch goals. They are in no particular order.
-
- * Unit tests
- * Add some sort of logic to have the elevator intelligently position itself when not actively being used (e.g. if it was an office building, idle on lower floors in morning, upper or middle floors at the end of the workday)
- 	* This could be configurable or "smart" based on trends
- * Add some type of self-documenting UI such as Swagger
 
 ## Questions ##
 

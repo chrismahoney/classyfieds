@@ -31,20 +31,20 @@ Implement a RESTful API to support a classifieds application that satisfies the 
  	* Only the User who created a Listing can update or delete a Listing
  	* An authenticated User can retrieve all Listings
 
-### Phase 3 - Add Region based listings ###
-
-We want to alter our very general classifieds API to limit Listings to Users based on an associated Region. Please make changes to satisfy the following requirements:
-
- * Each User is associated with a single Region. A Region has many Users.
- * When a User requests all Listings, they only receive Listings created by Users in the same Region as themselves.
-
-### Phase 4 - Stretch Goals ###
+### Phase 3 - Stretch Goals ###
 
 Please implement any of the following stretch goals. They are in no particular order.
 
  * Allow paging and/or filtering of Listings
  * Add some type of self-documenting UI such as Swagger
  * Create Unit Tests (note and include in the commit with your tests any bugs/improvements you make due to Unit Test development)
+
+### Phase 4 - SUPER STRETCH GOAL - Add Region based listings ###
+
+We want to alter our very general classifieds API to limit Listings to Users based on an associated Region. Please make changes to satisfy the following requirements:
+
+ * Each User is associated with a single Region. A Region has many Users.
+ * When a User requests all Listings, they only receive Listings created by Users in the same Region as themselves.
 
 ## Questions ##
 
