@@ -1,0 +1,152 @@
+openapi: 3.0.2
+info:
+  title: Classyfieds
+  description: A classified ad system similar to Facebook Marketplace, except not bad.
+  version: 0.1.0
+  contact:
+    name: Classyfieds API
+    email: chris.p.mahoney@gmail.com
+  license:
+    name: All rights reserved
+servers:
+  - url: http://localhost:3000/api
+    description: POC Local API
+security:
+  - apiKeyAuth: []
+paths:
+  /listing:
+    get:
+      summary: Check out all the current listings
+      operationId: 'getListing'
+      responses:
+        '200':
+          description: Great Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Listings'
+    post:
+      summary: Add a new listing
+      operationId: 'createListing'
+      requestBody:
+        description: Listing to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Listing"
+      responses:
+        '200':
+          description: Great Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Listing'
+              examples:
+                myCoolListing:
+                  summary: A cool listing
+                  value:
+                    title: Cool Thing To Buy
+                    description: It's very cool
+                    price: 3000
+        '401':
+          description: Validation Failed
+  /listing/{listingId}:
+    get:
+      summary: 'Find listing by ID'
+      operationId: 'getListingById'
+      parameters:
+        - in: path
+          name: listingId
+          description: "ID of listing to delete"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: Great Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Listing'
+    put:
+      security:
+        - apiKeyAuth: [write_own]
+      summary: Update an existing listing
+      operationId: 'updateListing'
+      parameters:
+        - in: path
+          name: listingId
+          description: "ID of listing to delete"
+          required: true
+          schema:
+            type: "string"
+      requestBody:
+        description: Listing to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Listing"
+      responses:
+        '200':
+          description: Great Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Listing'
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+    delete:
+      security:
+        - apiKeyAuth: [write_own]
+      summary: Delete an existing listing
+      operationId: 'deleteListing'
+      parameters:
+        - in: path
+          name: listingId
+          description: "ID of listing to delete"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: Deleted OK.
+        '401':
+          $ref: '#/components/responses/UnauthorizedResponse'
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  responses:
+    UnauthorizedResponse:
+      description: API Key invalid or missing!
+  schemas:
+    Listing:
+      type: "object"
+      required:
+      - "title"
+      - "description"
+      - "price"
+      properties:
+        id:
+          type: string
+          description: Listing ID
+        authorId:
+          type: string
+          description: ID of user that created listing
+        title:
+          type: string
+          description: Listing title
+        description:
+          type: string
+          description: Listing description detail
+        price:
+          type: number
+          description: Listing sale price
+    Listings:
+      type: "array"
+      items:
+        $ref: "#/components/schemas/Listing"
