@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const auth = require('../middleware/auth');
+
 let {
   getAllListings,
   getListingById,
@@ -13,6 +15,8 @@ let {
  * @swagger
  * /listings:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     description: All listings
  *     responses:
  *       200:
@@ -20,7 +24,7 @@ let {
  *       401:
  *         description: Unauthorized
  */
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
   let response = await getAllListings();
   if (response.success == true) {
     res.status(200).json(response);
@@ -44,7 +48,7 @@ router.get('/', async (req, res) => {
  *       200:
  *         description: Returns requested listing 
  */
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
   let response = await getListingById(req.params.id);
   res.json(response);
 });
@@ -70,7 +74,7 @@ router.get('/:id', async (req, res) => {
  *       201:
  *         description: Created listing OK 
  */
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   let body = {
     title: req.body.title,
     description: req.body.description,
@@ -113,7 +117,7 @@ router.post('/', async (req, res) => {
  *       201:
  *         description: Updated listing OK
  */
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
   let title = null, description = null, price = null;
   if (req.body.title) { title = req.body.title }
   if (req.body.description) { description = req.body.description }
@@ -142,7 +146,7 @@ router.put('/:id', async (req, res) => {
  *       200:
  *         description: Listing deleted OK
  */
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   let response = await removeListing(req.params.id);
   try {
     res.status(200).json(response);

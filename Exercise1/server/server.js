@@ -18,6 +18,11 @@ connectDb();
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
+    servers: [
+      {
+        url: '/'
+      }
+    ],
     info: {
       title: 'Classyfieds REST API',
       description: 'A REST API built to support Classyfieds listings on the frontend UI.'
@@ -25,12 +30,12 @@ const swaggerOptions = {
     components: {
       securitySchemes: {
         bearerAuth: {
-          type: 'apiKey',
-          in: 'header',
-          name: 'x-access-token'
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
         }
       }
-    }
+    },
   },
   apis: ['./routes/listings.js']
 }
