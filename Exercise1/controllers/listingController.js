@@ -1,37 +1,12 @@
 const Listing = require('../models/listing');
 
-async function getAllListings(search, reqPage, reqLimit) {
-  let options = {}
-
-  if (search) {
-    options = {
-      ...options,
-      $or: [
-        {title: new RegExp(search.toString(), 'i')},
-        {description: new RegExp(search.toString(), 'i')}
-      ]
-    }
-  }
-
-  let total = Listing.countDocuments(options);
-  let page = parseInt(reqPage) || 1;
-  let limit = parseInt(reqLimit) || parseInt(await total);
-  let last_page = Math.ceil(parseInt(await total)/limit);
-  if (last_page < 1 && total > 0) {
-    last_page = 1
-  }
-
+async function getAllListings() {
   try {
-    const listings = await Listing.find(options)
-      .skip((page - 1) * limit)
-      .limit(limit);
+    const listings = await Listing.find();
 
     return {
       success: true,
-      data: listings,
-      total: (await total).toString(),
-      page: (await page).toString(),
-      last_page: (await last_page).toString(),
+      data: listings
     };
   } catch (err) {
     return {
