@@ -6,6 +6,7 @@ const swaggerUi = require('swagger-ui-express');
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const auth = require('./middleware/auth');
 
 const { listings } = require('./routes/index');
 const User = require('./models/user');
@@ -46,6 +47,10 @@ app.use('/listings', listings);
 
 app.get('/', (req, res) => {
   res.send('Classyfieds API Ready.');
+});
+
+app.get('/welcome', auth, (req, res) => {
+  res.status(200).send("Access authorized.");
 });
 
 app.post('/register', async (req, res) => {
