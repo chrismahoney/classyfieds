@@ -14,8 +14,6 @@ let {
  * /listings:
  *   get:
  *     description: All listings
- *     security:
- *     - basicAuth: []
  *     responses:
  *       200:
  *         description: Returns all current listings
@@ -42,8 +40,6 @@ router.get('/', async (req, res) => {
  *       type: string
  *       description: Listing ID
  *     description: Get listing by ID
- *     security:
- *     - basicAuth: []
  *     responses:
  *       200:
  *         description: Returns requested listing 
@@ -57,8 +53,6 @@ router.get('/:id', async (req, res) => {
  * @swagger
  * /listings:
  *   post:
- *     security:
- *     - basicAuth: []
  *     parameters:
  *     - in: body
  *       name: listing
@@ -95,8 +89,6 @@ router.post('/', async (req, res) => {
  * @swagger
  * /listings/{id}:
  *   put:
- *     security:
- *     - basicAuth: []
  *     parameters:
  *     - in: path
  *       name: id
@@ -137,8 +129,6 @@ router.put('/:id', async (req, res) => {
  * @swagger
  * /listings/{id}:
  *   delete:
- *     security:
- *     - basicAuth: []
  *     parameters:
  *      - in: path
  *        name: id
