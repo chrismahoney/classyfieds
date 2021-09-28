@@ -10,12 +10,13 @@ import {
 
 import {
   Container,
-  Typography
+  Typography,
+  Grid
 } from '@mui/material';
 
 import Authentication from '../services/Authentication';
 
-const Listings = () => {
+const Listing = () => {
   const { id } = useParams();
   const [appState, setAppState] = useState({
     loading: true,
@@ -44,22 +45,27 @@ const Listings = () => {
 
   return (
     <div className="root">
-      <Container style={{ marginTop: 20 }}>
-        <Typography variant="h4" style={{ textAlign: 'center' }}>
-          All Listings
-        </Typography>
-        <div>
-          <Link to={"/"}>Back to listings</Link>
-        </div>
-      </Container>
-      <Container style={{ margin: 20}}>
+      <Container style={{ margin: 20 }}>
         {!appState.error && appState.isLoading && (
           <div className="loadingContainer">Loading...</div>
         )}
         {!appState.error && appState.listing && !appState.isLoading && (
-          <div className="listingContainer">
-            {JSON.stringify(appState.listing)}
-          </div>
+          <Grid container spacing={8}>
+            <Grid item xs={4}>
+              <img src="https://via.placeholder.com/280x140.png" />
+            </Grid>
+            <Grid item xs={8}>
+              <Typography variant="h4" component="div">
+                {appState.listing.title} (${appState.listing.price})
+              </Typography>
+              <Typography variant="body" component="div" style={{ marginTop: 10 }}>
+                {appState.listing.description}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Link to={"/listings"}>Back to listings</Link>
+            </Grid>
+          </Grid>
         )}
 
         {appState.error && (
@@ -70,4 +76,4 @@ const Listings = () => {
   );
 }
 
-export default Listings;
+export default Listing;

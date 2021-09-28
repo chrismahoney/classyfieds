@@ -29,7 +29,7 @@ const Login = (props) => {
         // and redirect to listings page. Display error messaging on failure.
         if (res.status === 200) {
           localStorage.setItem("userInfo", JSON.stringify(res.data));
-          props.history.push('/');
+          props.history.push('/listings');
         } else {
           setErrorMessage({ message: `Error (${res.status}) ${res.data.error}` })
         }

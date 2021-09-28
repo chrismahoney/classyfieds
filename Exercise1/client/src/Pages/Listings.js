@@ -9,8 +9,11 @@ import {
 
 import {
   Container,
-  Typography
+  Typography,
+  Grid
 } from '@mui/material';
+import ListingCard from '../Components/ListingCard';
+
 import Authentication from '../services/Authentication';
 
 const Listings = () => {
@@ -53,12 +56,13 @@ const Listings = () => {
         )}
         {!appState.error && appState.listings.length > 0 && !appState.isLoading && (
           <div className="listingsContainer">
-            {appState.listings.map(listing => (
-              <div key={listing._id} className="listing">
-                <Link to={`/listing/${listing._id}`}>Link</Link>
-                <div>{JSON.stringify(listing)}</div>
-              </div>
-            ))}
+            <Grid container spacing={2}>
+              {appState.listings.map(listing => (
+                <Grid key={listing._id} item xs={3}>
+                  <ListingCard listing={listing} />
+                </Grid>
+              ))}
+            </Grid>
           </div>
         )}
 
