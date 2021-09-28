@@ -23,9 +23,10 @@ const swaggerOptions = {
     },
     components: {
       securitySchemes: {
-        basicAuth: {
-          type: 'http',
-          scheme: 'basic'
+        bearerAuth: {
+          type: 'apiKey',
+          in: 'header',
+          name: 'x-access-token'
         }
       }
     }
@@ -91,7 +92,8 @@ app.post('/register', async (req, res) => {
     user.token = token;
 
     // Return new user
-    res.status(201).json(user);
+    return res.status(201).json(user);
+    
   } catch (err) {
     console.log(err);
   }
@@ -125,9 +127,10 @@ app.post('/login', async (req, res) => {
       user.token = token;
 
       // Respond with user
-      res.status(200).json(user);
+      return res.status(200).json(user);
     }
-    res.status(400).send("Invalid credentials");
+
+    return res.status(400).send("Invalid credentials");
   } catch (err) {
     console.log(err);
   }

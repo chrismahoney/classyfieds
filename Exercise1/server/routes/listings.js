@@ -89,6 +89,8 @@ router.post('/', async (req, res) => {
  * @swagger
  * /listings/{id}:
  *   put:
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *     - in: path
  *       name: id
