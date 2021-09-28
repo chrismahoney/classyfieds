@@ -11,6 +11,7 @@ import {
   Container,
   Typography
 } from '@mui/material';
+import Authentication from '../services/Authentication';
 
 const Listings = () => {
   const [appState, setAppState] = useState({
@@ -26,8 +27,12 @@ const Listings = () => {
    */
   useEffect(() => {
     const apiUrl = `http://localhost:5000/listings`;
-    fetch(apiUrl)
-      .then((res) => res.json())
+    fetch(apiUrl, {
+        headers: Authentication.getAuthHeader()
+      })
+      .then((res) => {
+        return res.json();
+      })
       .then((listings) => {
         setAppState({ loading: false, listings: listings.data });
       })

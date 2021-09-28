@@ -25,7 +25,6 @@ const Login = (props) => {
     const credentials = { email: data.username, password: data.password };
     Authentication.login(credentials)
       .then(res => {
-        console.log(res);
         // Login was successful, capture user info to local storage
         // and redirect to listings page. Display error messaging on failure.
         if (res.status === 200) {

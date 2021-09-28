@@ -12,9 +12,7 @@ class Authentication {
   }
 
   getAuthHeader() {
-    return { headers: {
-      Authorization: 'Bearer ' + this.getUserInfo().token
-    }};
+    return { "x-access-token": this.getUserInfo().token }
   }
 
   logout() {

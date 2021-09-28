@@ -13,6 +13,8 @@ import {
   Typography
 } from '@mui/material';
 
+import Authentication from '../services/Authentication';
+
 const Listings = () => {
   const { id } = useParams();
   const [appState, setAppState] = useState({
@@ -28,8 +30,12 @@ const Listings = () => {
    */
   useEffect(() => {
     const apiUrl = `http://localhost:5000/listings/${id}`;
-    fetch(apiUrl)
-      .then((res) => res.json())
+    fetch(apiUrl, {
+      headers: Authentication.getAuthHeader()
+    })
+      .then((res) => {
+        return res.json()
+      })
       .then((listing) => {
         setAppState({ loading: false, listing: listing.data });
       })
