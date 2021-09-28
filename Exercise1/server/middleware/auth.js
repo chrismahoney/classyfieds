@@ -6,14 +6,14 @@ const verifyToken = (req, res, next) => {
   const token = req.body.token || req.query.token || req.headers["x-access-token"];
 
   if (!token) {
-    return res.status(403).send("Unauthorized access, token required.");
+    return res.status(403).send({ error: "Unauthorized access, token required." });
   }
 
   try {
     const decoded = jwt.verify(token, config.TOKEN_KEY);
     req.user = decoded;
   } catch (err) {
-    return res.status(401).send("Unauthorized, invalid token.")
+    return res.status(401).send({ error: "Unauthorized, invalid token." })
   }
   return next();
 };
