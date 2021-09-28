@@ -8,6 +8,11 @@ import {
   useParams
 } from 'react-router-dom';
 
+import {
+  Container,
+  Typography
+} from '@mui/material';
+
 const Listings = () => {
   const { id } = useParams();
   const [appState, setAppState] = useState({
@@ -22,35 +27,39 @@ const Listings = () => {
    * a useEffect hook below.
    */
   useEffect(() => {
-    const apiUrl = `http://localhost:5000/listings/`;
+    const apiUrl = `http://localhost:5000/listings/${id}`;
     fetch(apiUrl)
       .then((res) => res.json())
-      .then((listings) => {
-        setAppState({ loading: false, listings: listings.data });
+      .then((listing) => {
+        setAppState({ loading: false, listing: listing.data });
       })
-      .catch((err) => setAppState({ loading: false, listings: [], error: err }));
+      .catch((err) => setAppState({ loading: false, listing: {}, error: err }));
   }, [setAppState])
 
   return (
     <div className="root">
-      <div>
-        <Link to={"/"}>Back to listings</Link>
-      </div>
-      <div>
-        <h1>Listing: {id}</h1>
-      </div>
-      {!appState.error && appState.isLoading && (
-        <div className="loadingContainer">Loading...</div>
-      )}
-      {!appState.error && appState.listing && !appState.isLoading && (
-        <div className="listingContainer">
-          {JSON.stringify(appState.listing)}
+      <Container style={{ marginTop: 20 }}>
+        <Typography variant="h4" style={{ textAlign: 'center' }}>
+          All Listings
+        </Typography>
+        <div>
+          <Link to={"/"}>Back to listings</Link>
         </div>
-      )}
+      </Container>
+      <Container style={{ margin: 20}}>
+        {!appState.error && appState.isLoading && (
+          <div className="loadingContainer">Loading...</div>
+        )}
+        {!appState.error && appState.listing && !appState.isLoading && (
+          <div className="listingContainer">
+            {JSON.stringify(appState.listing)}
+          </div>
+        )}
 
-      {appState.error && (
-        <div className="error">{appState.error}</div>
-      )}
+        {appState.error && (
+          <div className="error">{appState.error}</div>
+        )}
+      </Container>
     </div>
   );
 }

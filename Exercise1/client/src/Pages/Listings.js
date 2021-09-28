@@ -7,6 +7,11 @@ import {
   Link
 } from 'react-router-dom';
 
+import {
+  Container,
+  Typography
+} from '@mui/material';
+
 const Listings = () => {
   const [appState, setAppState] = useState({
     loading: true,
@@ -31,26 +36,31 @@ const Listings = () => {
 
   return (
     <div className="root">
-      <div>
-        <h1>All Listings</h1>
-      </div>
-      {!appState.error && appState.isLoading && (
-        <div className="loadingContainer">Loading...</div>
-      )}
-      {!appState.error && appState.listings.length > 0 && !appState.isLoading && (
-        <div className="listingsContainer">
-          {appState.listings.map(listing => (
-            <div className="listing">
-              <Link to={`/listing/${listing._id}`}>Link</Link>
-              <div>{JSON.stringify(listing)}</div>
-            </div>
-          ))}
-        </div>
-      )}
+      <Container style={{ marginTop: 20 }}>
+        <Typography variant="h4" style={{ textAlign: 'center' }}>
+          All Listings
+        </Typography>
+      </Container>
 
-      {appState.error && (
-        <div className="error">{appState.error}</div>
-      )}
+      <Container style={{ margin: 20 }}>
+        {!appState.error && appState.isLoading && (
+          <div className="loadingContainer">Loading...</div>
+        )}
+        {!appState.error && appState.listings.length > 0 && !appState.isLoading && (
+          <div className="listingsContainer">
+            {appState.listings.map(listing => (
+              <div className="listing">
+                <Link to={`/listing/${listing._id}`}>Link</Link>
+                <div>{JSON.stringify(listing)}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {appState.error && (
+          <div className="error">{appState.error}</div>
+        )}
+      </Container>
     </div>
   );
 }
