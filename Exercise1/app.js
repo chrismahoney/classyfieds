@@ -92,8 +92,40 @@ app.post('/register', async (req, res) => {
   }
 });
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
+  try {
+    // Get login input
+    const { email, password } = req.body;
 
+    // Validate
+    if (!(email && password)) {
+      res.status(400).send("Missing input, email and password required.");
+    }
+
+    // Find valid user
+    const user = await User.findOne({ email });
+
+    // Check password and create/save token if valid
+    if (user && (await bcrypt.compare(password, user.password))) {
+      // Create token
+      const token = jwt.sign(
+        { user_id: user._id, email },
+        process.env.TOKEN_KEY,
+        {
+          expiresIn: '2h'
+        }
+      );
+
+      // Save token
+      user.token = token;
+
+      // Respond with user
+      res.status(200).json(user);
+    }
+    res.status(400).send("Invalid credentials");
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
