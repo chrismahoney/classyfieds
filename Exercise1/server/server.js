@@ -1,5 +1,6 @@
 const { config } = require('dotenv');
 const express = require('express');
+const cors = require('cors');
 const connectDb = require('./config/db');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
@@ -42,7 +43,10 @@ app.use(function(req, res, next) {
   next();
 });
 */
-
+const corsOptions = {
+  origin: 'http://localhost:3000'
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/listings', listings);
 
@@ -140,6 +144,6 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.listen(
-  process.env.PORT || 3000,
+  process.env.PORT || 5000,
   () => console.log('Classyfieds API loaded OK.')
 );
