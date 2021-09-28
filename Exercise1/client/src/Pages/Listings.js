@@ -49,7 +49,7 @@ const Listings = () => {
         {!appState.error && appState.listings.length > 0 && !appState.isLoading && (
           <div className="listingsContainer">
             {appState.listings.map(listing => (
-              <div className="listing">
+              <div key={listing._id} className="listing">
                 <Link to={`/listing/${listing._id}`}>Link</Link>
                 <div>{JSON.stringify(listing)}</div>
               </div>

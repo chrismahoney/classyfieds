@@ -58,7 +58,7 @@ app.get('/welcome', auth, (req, res) => {
   res.status(200).send("Access authorized.");
 });
 
-app.post('/register', async (req, res) => {
+app.post('/auth/register', async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -103,7 +103,7 @@ app.post('/register', async (req, res) => {
   }
 });
 
-app.post('/login', async (req, res) => {
+app.post('/auth/login', async (req, res) => {
   try {
     // Get login input
     const { email, password } = req.body;
@@ -134,9 +134,11 @@ app.post('/login', async (req, res) => {
       return res.status(200).json(user);
     }
 
-    return res.status(400).send("Invalid credentials");
+    return res.status(400).send({
+      error: "Invalid credentials"
+    });
   } catch (err) {
-    console.log(err);
+    return res.status(400).json(err.message);
   }
 });
 
