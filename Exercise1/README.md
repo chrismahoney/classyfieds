@@ -16,7 +16,7 @@ $ npm install
 $ npm run dev       # runs nodemon in development to watch changes
 $ npm run start     # production run command
 ```
-2. Use `/register` endpoint to register a new user with `email` and `password` in JSON request body.
+2. Use `/register` endpoint (POST) to register a new user with `email` and `password` in JSON request body.
 3. The user record will have a `token` created within their user record that can be used in subsequent requests.
 4. See `http://localhost:5000/api-docs` for Swagger UI based on configuration in server.js and JSDoc entries in `routes/listings.js`.
 
