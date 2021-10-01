@@ -40,14 +40,6 @@ const swaggerOptions = {
   apis: ['./routes/listings.js']
 }
 
-/*
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, UPDATE, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  next();
-});
-*/
 const corsOptions = {
   origin: 'http://localhost:3000'
 };
@@ -59,24 +51,20 @@ app.get('/', (req, res) => {
   res.send('Classyfieds API Ready.');
 });
 
-app.get('/welcome', auth, (req, res) => {
-  res.status(200).send("Access authorized.");
-});
-
 app.post('/auth/register', async (req, res) => {
   try {
     const { email, password } = req.body;
 
     // Validate
     if (!(email && password)) {
-      res.status(400).send("Missing input, email and password required.");
+      res.status(400).send({ error: "Missing input, email and password required." });
     }
 
     // CHeck against user db for existing
     const foundUser = await User.findOne({ email });
 
     if (foundUser) {
-      return res.status(409).send("User already exists.");
+      return res.status(409).send({ error: "User already exists." });
     }
 
     // Encrypt incoming password
@@ -115,7 +103,7 @@ app.post('/auth/login', async (req, res) => {
 
     // Validate
     if (!(email && password)) {
-      res.status(400).send("Missing input, email and password required.");
+      res.status(400).send({ error: "Missing input, email and password required." });
     }
 
     // Find valid user
