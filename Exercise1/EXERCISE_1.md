@@ -71,7 +71,10 @@ We want to alter our very general classifieds API to limit Listings to Users bas
  1. How much time did you spend on your implementation?
   * 3 days total
 		* Day 1: Addition of Swagger and login/register endpoints, creation of auth middleware for express calls.
+
 		* Day 2: Creation of frontend UI with MaterialUI, axios/fetch calls, proper injection of authentication header
+
+		* Day 3: Documentation of client/server, exercise in general
  1. What was most challenging for you?
   * Utilizing JWT on both frontend and backend was a new challenge, where previously I have depended on a framework like NestJS. Given time, I'd have chosen a proper framework that handles major components of a system such as classyfieds.
 	* OpenAPI 3.0 changed _just_ enough from 2.x to make per route authorization difficult to understand utilizing apiKey or bearer token behavior. Given time, I would have utilized OAuth2 with a third-party security provider such as Google or GitHub.
