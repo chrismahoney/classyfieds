@@ -53,7 +53,7 @@ We want to alter our very general classifieds API to limit Listings to Users bas
 - User can be logged in with same email and password with POST/JSON request body (returns same token as above)
 - Swagger JSON spec + JSDoc-based definition of paths in routes/listings.js
 - User can view list of listings and listing detail when client is running at localhost:3000.
-- TODO: I did not get to verify and authorize the incoming web token on the update and delete endpoints as asked for in the challenge as I decided on. I would accomplish this by: 
+- TODO: I did not get to verify and authorize the incoming web token on the update and delete endpoints as asked for in the challenge as I decided on authentication type a bit late in the game. I would accomplish this via JWT by: 
   1. Ingestion of the token via express endpoint
 	1. Usage of the jwt package to unpack the user id (MongoDB _id and email are encased in JWT payload)
 	1. Verify a new `createdBy` user ID field per classified listing against the currently authorized user
