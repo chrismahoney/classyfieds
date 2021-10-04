@@ -46,11 +46,33 @@ We want to alter our very general classifieds API to limit Listings to Users bas
  * Each User is associated with a single Region. A Region has many Users.
  * When a User requests all Listings, they only receive Listings created by Users in the same Region as themselves.
 
+## Final State Report ##
+- Backend based on NodeJS, Express, MongoDB
+- Frontend based on ReactJS, create-react-app, MaterialUI. Ability to log in via localhost:3000/login URI
+- User can be registered with email & password with POST/JSON request body (returns JWT token with 2 hour expiry)
+- User can be logged in with same email and password with POST/JSON request body (returns same token as above)
+- Swagger JSON spec + JSDoc-based definition of paths in routes/listings.js
+- User can view list of listings and listing detail when client is running at localhost:3000.
+- TODO: I did not get to verify and authorize the incoming web token on the update and delete endpoints as asked for in the challenge as I decided on. I would accomplish this by: 
+  1. Ingestion of the token via express endpoint
+	1. Usage of the jwt package to unpack the user id (MongoDB _id and email are encased in JWT payload)
+	1. Verify a new `createdBy` user ID field per classified listing against the currently authorized user
+	1. If matched, 200 OK else 401 Unauthorized.
+
 ## Questions ##
 
  1. How can your implementation be optimized?
+  - Caching either results in Node (behind a load balancer/caching system such as ELB/CloudFront)
+	- Better understanding of MongoDB clustering in their Atlas implementation
+	- Using a graph query system such as DynamoDB with GraphQL would help with large amounts of classified data entries.
+	- Security for authorization
  1. How much time did you spend on your implementation?
+  - 3 days total
+		- Day 1: Addition of Swagger and login/register endpoints, creation of auth middleware for express calls.
+		- Day 2: Creation of frontend UI with MaterialUI, axios/fetch calls, proper injection of authentication header
  1. What was most challenging for you?
+  - Utilizing JWT on both frontend and backend was a new challenge, where previously I have depended on a framework like NestJS. Given time, I'd have chosen a proper framework that handles major components of a system such as classyfieds.
+	- OpenAPI 3.0 changed _just_ enough to make per route authorization difficult to understand utilizing apiKey or bearer token behavior. Given time, I would have utilized OAuth2 with a third-party security provider such as Google or GitHub.
 
 ## Next Steps ##
 
